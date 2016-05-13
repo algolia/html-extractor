@@ -1,5 +1,5 @@
 # Expose gem version
-class HTMLHierarchyExtractor
+class HTMLHierarchyExtractorVersion
   def self.to_s
     '0.0.1'
   end

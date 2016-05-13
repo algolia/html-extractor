@@ -6,7 +6,7 @@ end
 require 'awesome_print'
 require 'nokogiri'
 require_relative './spec_helper_simplecov.rb'
-require_relative '../lib/html_hierarchy_extractor.rb'
+require_relative '../lib/html-hierarchy-extractor.rb'
 
 RSpec.configure do |config|
   config.filter_run(focus: true)

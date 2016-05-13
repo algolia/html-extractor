@@ -27,6 +27,16 @@ If you plan on submitting a PR, I suggest you install the git hooks. This will
 run pre-commit and pre-push checks. Those checks will also be run by TravisCI,
 but running them locally gives faster feedback.
 
+If you want to a local version of the gem in your local project, I suggest
+updating your project `Gemfile` to point to the correct local directory
+
+```ruby
+gem "html-hierarchy-extractor", :path => "/path/to/local/gem/folder"
+```
+
+You should also run `rake gemspec` from the `html-hierarchy-extractor`
+repository the first time and if you added/deleted any file or dependency.
+
 # Tagging and releasing
 
 This part is for main contributors:

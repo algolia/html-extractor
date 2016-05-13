@@ -57,12 +57,12 @@ class HTMLHierarchyExtractor
 
     items = []
     current_hierarchy = {
+      lvl0: nil,
       lvl1: nil,
       lvl2: nil,
       lvl3: nil,
       lvl4: nil,
-      lvl5: nil,
-      lvl6: nil
+      lvl5: nil
     }
     current_anchor = nil
 
@@ -70,7 +70,7 @@ class HTMLHierarchyExtractor
       # If it's a heading, we update our current hierarchy
       if node.matches?(heading_selector)
         # Which level heading is it?
-        current_lvl = extract_tag_name(node).gsub(/^h/, '').to_i
+        current_lvl = extract_tag_name(node).gsub(/^h/, '').to_i - 1
         # Update this level, and set all the following ones to nil
         current_hierarchy["lvl#{current_lvl}".to_sym] = extract_text(node)
         (current_lvl + 1..6).each do |lvl|
