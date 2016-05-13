@@ -3,9 +3,12 @@ require 'nokogiri'
 # Extract content from an HTML page in the form of items with associated
 # hierarchy data
 class HTMLHierarchyExtractor
-  def initialize(input)
+  def initialize(input, options: {})
     @dom = Nokogiri::HTML(input)
-    @css_selector = 'p'
+    default_options = {
+      css_selector: 'p'
+    }
+    @options = default_options.merge(options)
   end
 
   # Returns the outer HTML of a given node
@@ -53,7 +56,7 @@ class HTMLHierarchyExtractor
     heading_selector = 'h1,h2,h3,h4,h5,h6'
     # We select all nodes that match either the headings or the elements to
     # extract. This will allow us to loop over it in order it appears in the DOM
-    all_selector = "#{heading_selector},#{@css_selector}"
+    all_selector = "#{heading_selector},#{@options[:css_selector]}"
 
     items = []
     current_hierarchy = {
@@ -82,14 +85,15 @@ class HTMLHierarchyExtractor
       end
 
       # Stop if node is not to be extracted
-      next unless node.matches?(@css_selector)
+      next unless node.matches?(@options[:css_selector])
 
       items << {
         html: extract_html(node),
         text: extract_text(node),
         tag_name: extract_tag_name(node),
         hierarchy: current_hierarchy.clone,
-        anchor: current_anchor
+        anchor: current_anchor,
+        node: node
       }
     end
 
