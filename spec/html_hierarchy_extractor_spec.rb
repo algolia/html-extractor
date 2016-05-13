@@ -37,6 +37,32 @@ describe(HTMLHierarchyExtractor) do
       # Then
       expect(actual[0][:node]).to be_an(Nokogiri::XML::Element)
     end
+
+    it 'should remove empty elements' do
+      # Given
+      input = '<p></p>'
+
+      # When
+      actual = HTMLHierarchyExtractor.new(input).extract
+
+      # Then
+      expect(actual.size).to eq 0
+    end
+
+    it 'should add the DOM position to each element' do
+      # Given
+      input = '<p>foo</p>
+               <p>bar</p>
+               <p>baz</p>'
+
+      # When
+      actual = HTMLHierarchyExtractor.new(input).extract
+
+      # Then
+      expect(actual[0][:weight][:position]).to eq 0
+      expect(actual[1][:weight][:position]).to eq 1
+      expect(actual[2][:weight][:position]).to eq 2
+    end
   end
 
   describe 'extract_html' do
@@ -309,6 +335,107 @@ describe(HTMLHierarchyExtractor) do
 
       # Then
       expect(actual[0][:anchor]).to eq 'anchor'
+    end
+  end
+
+  describe 'uuid' do
+    it 'should give different uuid if different content' do
+      # Given
+      input_a = '<p>foo</p>'
+      input_b = '<p>bar</p>'
+
+      # When
+      actual_a = HTMLHierarchyExtractor.new(input_a).extract[0]
+      actual_b = HTMLHierarchyExtractor.new(input_b).extract[0]
+
+      # Then
+      expect(actual_a[:uuid]).not_to eq(actual_b[:uuid])
+    end
+
+    it 'should give different uuid if different HTML tag' do
+      # Given
+      input_a = '<p>foo</p>'
+      input_b = '<p class="bar">foo</p>'
+
+      # When
+      actual_a = HTMLHierarchyExtractor.new(input_a).extract[0]
+      actual_b = HTMLHierarchyExtractor.new(input_b).extract[0]
+
+      # Then
+      expect(actual_a[:uuid]).not_to eq(actual_b[:uuid])
+    end
+
+    it 'should give different uuid if different position in page' do
+      # Given
+      input_a = '<p>foo</p><p>bar</p>'
+      input_b = '<p>foo</p><p>foo again</p><p>bar</p>'
+
+      # When
+      actual_a = HTMLHierarchyExtractor.new(input_a).extract[1]
+      actual_b = HTMLHierarchyExtractor.new(input_b).extract[2]
+
+      # Then
+      expect(actual_a[:uuid]).not_to eq(actual_b[:uuid])
+    end
+
+    it 'should give different uuid if different parent header' do
+      # Given
+      input_a = '<h1 name="foo">foo</h1><p>bar</p>'
+      input_b = '<h1 name="bar">bar</h1><p>bar</p>'
+
+      # When
+      actual_a = HTMLHierarchyExtractor.new(input_a).extract[0]
+      actual_b = HTMLHierarchyExtractor.new(input_b).extract[0]
+
+      # Then
+      expect(actual_a[:uuid]).not_to eq(actual_b[:uuid])
+    end
+
+    it 'should always give the same uuid for the same content' do
+      # Given
+      input_a = '<h1 name="foo">foo</h1><p>bar</p>'
+      input_b = '<h1 name="foo">foo</h1><p>bar</p>'
+
+      # When
+      actual_a = HTMLHierarchyExtractor.new(input_a).extract[0]
+      actual_b = HTMLHierarchyExtractor.new(input_b).extract[0]
+
+      # Then
+      expect(actual_a[:uuid]).to eq(actual_b[:uuid])
+    end
+  end
+
+  describe 'heading_weight' do
+    it 'should have 100 if no heading' do
+      # Given
+      input = '<p>foo</p>'
+
+      # When
+      actual = HTMLHierarchyExtractor.new(input).extract
+
+      # Then
+      expect(actual[0][:weight][:heading]).to eq 100
+    end
+
+    it 'should have decreasing value under small headers' do
+      # Given
+      input = '<h1 name="one">bar</h1><p>foo</p>
+               <h2 name="two">bar</h2><p>foo</p>
+               <h3 name="three">bar</h3><p>foo</p>
+               <h4 name="four">bar</h4><p>foo</p>
+               <h5 name="five">bar</h5><p>foo</p>
+               <h6 name="six">bar</h6><p>foo</p>'
+
+      # When
+      actual = HTMLHierarchyExtractor.new(input).extract
+
+      # Then
+      expect(actual[0][:weight][:heading]).to eq 90
+      expect(actual[1][:weight][:heading]).to eq 80
+      expect(actual[2][:weight][:heading]).to eq 70
+      expect(actual[3][:weight][:heading]).to eq 60
+      expect(actual[4][:weight][:heading]).to eq 50
+      expect(actual[5][:weight][:heading]).to eq 40
     end
   end
 end

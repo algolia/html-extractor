@@ -1,4 +1,5 @@
 require 'nokogiri'
+require 'digest/md5'
 
 # Extract content from an HTML page in the form of items with associated
 # hierarchy data
@@ -52,6 +53,33 @@ class HTMLHierarchyExtractor
     nil
   end
 
+  ##
+  # Generate a unique identifier for the item
+  def uuid(item)
+    # We first get all the keys of the object, sorted alphabetically...
+    ordered_keys = item.keys.sort
+
+    # ...then we build a huge array of "key=value" pairs...
+    ordered_array = ordered_keys.map do |key|
+      value = item[key]
+      # We apply the method recursively on other hashes
+      value = uuid(value) if value.is_a?(Hash)
+      "#{key}=#{value}"
+    end
+
+    # ...then we build a unique md5 hash of it
+    Digest::MD5.hexdigest(ordered_array.join(','))
+  end
+
+  ##
+  # Get a relative numeric value of the importance of the heading
+  # 100 for top level, then -10 per heading
+  def heading_weight(heading_level)
+    weight = 100
+    return weight if heading_level.nil?
+    weight - ((heading_level + 1) * 10)
+  end
+
   def extract
     heading_selector = 'h1,h2,h3,h4,h5,h6'
     # We select all nodes that match either the headings or the elements to
@@ -67,7 +95,9 @@ class HTMLHierarchyExtractor
       lvl4: nil,
       lvl5: nil
     }
-    current_anchor = nil
+    current_position = 0 # Position of the DOM node in the tree
+    current_lvl = nil # Current closest hierarchy level
+    current_anchor = nil # Current closest anchor
 
     @dom.css(all_selector).each do |node|
       # If it's a heading, we update our current hierarchy
@@ -87,14 +117,26 @@ class HTMLHierarchyExtractor
       # Stop if node is not to be extracted
       next unless node.matches?(@options[:css_selector])
 
-      items << {
+      # Stop if node is empty
+      text = extract_text(node)
+      next if text.empty?
+
+      item = {
         html: extract_html(node),
-        text: extract_text(node),
+        text: text,
         tag_name: extract_tag_name(node),
         hierarchy: current_hierarchy.clone,
         anchor: current_anchor,
-        node: node
+        node: node,
+        weight: {
+          position: current_position,
+          heading: heading_weight(current_lvl)
+        }
       }
+      item[:uuid] = uuid(item)
+      items << item
+
+      current_position += 1
     end
 
     items
