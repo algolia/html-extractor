@@ -1,14 +1,16 @@
 #!/usr/bin/env bash
+# Stop if any command fails
+set -e
 
-git checkout master || exit 1
-git pull || exit 1
-bundle install && appraisal install
+git checkout master
+git pull
+bundle install
 
-git rebase develop || exit 1
-bundle install && appraisal install
-rake release || exit 1
+git rebase develop
+bundle install
+rake release
 
-git checkout develop || exit 1
-bundle install && appraisal install
-git rebase master || exit 1
-bundle install && appraisal install
+git checkout develop
+bundle install
+git rebase master
+bundle install
