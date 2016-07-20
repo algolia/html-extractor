@@ -29,13 +29,13 @@ puts records
 
 ## Records
 
-`extract` will return an array of recordes. Each record will represent a `<p>`
+`extract` will return an array of records. Each record will represent a `<p>`
 paragraph of the initial text, along with it textual version (HTML removed),
 heading hierarchy, and other interesting bits.
 
 ## Example
 
-Let's take the following HTML as input and see what recordes we got as output:
+Let's take the following HTML as input and see what records we got as output:
 
 ```html
 <!doctype html>
@@ -63,7 +63,7 @@ Let's take the following HTML as input and see what recordes we got as output:
 </html>
 ```
 
-Here is one of the recordes extracted:
+Here is one of the records extracted:
 
 ```ruby
 {
