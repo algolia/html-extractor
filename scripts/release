@@ -4,13 +4,10 @@ set -e
 
 git checkout master
 git pull
-bundle install
 
 git rebase develop
 bundle install
 rake release
 
 git checkout develop
-bundle install
 git rebase master
-bundle install
