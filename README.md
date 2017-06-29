@@ -72,7 +72,7 @@ Here is one of the records extracted:
   :html => "<p>The hero quit his jobs, hit the road, or whatever cuts him from his previous life.</p>",
   :text => "The hero quit his jobs, hit the road, or whatever cuts him from his previous life.",
   :node => #<Nokogiri::XML::Element:0x11a5850 name="p">,
-  :anchor => nil,
+  :anchor => 'threshold',
   :hierarchy => {
     :lvl0 => "The Hero's Journey",
     :lvl1 => "Part One: Departure",
