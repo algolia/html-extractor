@@ -133,6 +133,76 @@ page = HTMLHierarchyExtractor.new(content, { css_selector: 'p,li' })
 This lets you change the default selector. Here instead of `<p>` paragraph,
 the library will extract `<li>` list elements as well.
 
+# CONTRIBUTING
+
+I'm happy you'd like to contribute. All contributions are welcome, ranging from
+feature requests to pull requests, but also including typo fixing, documentation
+and generic bug reports.
+
+## Bug Reports and feature requests
+
+For any bug or ideas of new features, please start by checking in the
+[issues](https://github.com/pixelastic/html-hierarchy-extractor/issues) tab if
+it hasn't been discussed already. If not, feel free to open a new issue.
+
+## Pull Requests
+
+All PR are welcome, from small typo fixes to large codebase changes. If you
+think you'll need to change a lot of code in a lot of files, I would suggest you
+to open an issue first so we can discuss before you start working on something.
+
+All PR should be based on the `develop` branch (`master` only ever contains the
+last released change).
+
+## Git Hooks
+
+If you start working on the actual code, you should install the git hooks.
+
+```
+cp ./scripts/git_hooks/* ./.git/hooks
+```
+
+This will add a `pre-commit` and `pre-push` scripts that will respectively check
+that all files are lint-free before committing, and pass all tests before
+pushing. If any of those two hooks give your errors, you should fix the code
+before commiting or pushing.
+
+Having those steps helps keeping the codebase clean as much as possible, and
+avoid polluting discussion in PR about style.
+
+## Development
+
+First thing you should do to get all your dependencies up to date is run `bundle
+install` before running any other command.
+
+## Lint
+
+`rake lint` will check all the files for potential linting issue. It uses
+Rubocop, and the configuration can be found in `.rubocop.yml`.
+
+## Test
+
+`rake test` will run all the tests. 
+
+`rake coverage` will do the same, but also adding the code coverage files to
+`./coverage`. This should be useful in a CI environment.
+
+`rake watch` will run Guard that will do a live run of all your tests. Every
+update to a file (code or test) will re-run all the bound tests. This is highly
+recommended for TDD.
+
+## Using a local version of the gem
+
+If you want to test a local version of the gem in your local project, I suggest
+updating your project `Gemfile` to point to the correct local directory
+
+```ruby
+gem "html-hierarchy-extractor", :path => "/path/to/local/gem/folder"
+```
+
+You should also run `rake gemspec` from the `html-hierarchy-extractor`
+repository the first time and if you added/deleted any file or dependency.
+
 
 [1]: https://www.algolia.com/
 [2]: https://community.algolia.com/docsearch/
