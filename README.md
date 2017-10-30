@@ -48,7 +48,7 @@ Let's take the following HTML as input and see what records we got as output:
   <h3 name="calladventure">The call to Adventure</h3>
   <p>Some out-of-the-ordinary event pushes the hero to start his journey.</p>
   <h3 name="threshold">Crossing the Threshold</h3>
-  <p>The hero quits his job, hit the road, or whatever cuts him from his previous life.</p>
+  <p>The hero quits his job, hits the road, or whatever cuts him from his previous life.</p>
   <h2 name="initiations">Part Two: Initiation</h2>
   <h3 name="trials">The Road of Trials</h3>
   <p>The road is filled with dangers. The hero as to find his inner strength to overcome them.</p>
@@ -69,8 +69,8 @@ Here is one of the records extracted:
 {
   :uuid => "1f5923d5a60e998704f201bbe9964811",
   :tag_name => "p",
-  :html => "<p>The hero quit his jobs, hit the road, or whatever cuts him from his previous life.</p>",
-  :text => "The hero quit his jobs, hit the road, or whatever cuts him from his previous life.",
+  :html => "<p>The hero quits his job, hits the road, or whatever cuts him from his previous life.</p>",
+  :text => "The hero quits his job, hits the road, or whatever cuts him from his previous life.",
   :node => #<Nokogiri::XML::Element:0x11a5850 name="p">,
   :anchor => 'threshold',
   :hierarchy => {
@@ -100,7 +100,7 @@ tags and inner children. The `text` attribute contains the textual content,
 stripping out all HTML.
 
 `node` contains the [Nokogiri node][4] instance. The lib uses it internally to
-extract all the relevant information ut is also exposed if you want to process
+extract all the relevant information but is also exposed if you want to process
 the node further.
 
 The `anchor` attributes contains the HTML anchor closest to the element. Here it
