@@ -97,7 +97,6 @@ namespace 'release' do
   task :push do
     load 'lib/version.rb'
     current_version = HTMLHierarchyExtractorVersion.to_s
-    p current_version
     sh "gem push ./build/html-hierarchy-extractor-#{current_version}.gem"
   end
   desc 'Update master'
