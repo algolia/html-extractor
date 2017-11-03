@@ -98,13 +98,13 @@ namespace 'release' do
     load 'lib/version.rb'
     current_version = HTMLHierarchyExtractorVersion.to_s
     p current_version
-    # sh "gem push ./build/html-hierarchy-extractor-#{current_version}.gem"
+    sh "gem push ./build/html-hierarchy-extractor-#{current_version}.gem"
   end
   desc 'Update master'
   task :update_master_from_develop do
-    # sh 'git checkout master --quiet'
-    # sh 'git rebase develop --quiet'
-    # sh 'git checkout developer --quiet'
+    sh 'git checkout master --quiet'
+    sh 'git rebase develop --quiet'
+    sh 'git checkout developer --quiet'
   end
 end
 task default: :test
