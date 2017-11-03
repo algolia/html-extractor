@@ -97,13 +97,14 @@ namespace 'release' do
   task :push do
     require_relative 'lib/version'
     current_version = HTMLHierarchyExtractorVersion.to_s
-    sh "gem push ./build/html-hierarchy-extractor-#{current_version}.gem"
+    p current_version
+    # sh "gem push ./build/html-hierarchy-extractor-#{current_version}.gem"
   end
   desc 'Update master'
   task :update_master_from_develop do
-    sh 'git checkout master --quiet'
-    sh 'git rebase develop --quiet'
-    sh 'git checkout developer --quiet'
+    # sh 'git checkout master --quiet'
+    # sh 'git rebase develop --quiet'
+    # sh 'git checkout developer --quiet'
   end
 end
 
