@@ -95,7 +95,7 @@ namespace 'release' do
   end
   desc 'Push the gem to rubygems'
   task :push do
-    load 'lib/version'
+    load 'lib/version.rb'
     current_version = HTMLHierarchyExtractorVersion.to_s
     p current_version
     # sh "gem push ./build/html-hierarchy-extractor-#{current_version}.gem"
@@ -107,7 +107,4 @@ namespace 'release' do
     # sh 'git checkout developer --quiet'
   end
 end
-
-
-
 task default: :test
