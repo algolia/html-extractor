@@ -95,7 +95,7 @@ namespace 'release' do
   end
   desc 'Push the gem to rubygems'
   task :push do
-    require_relative 'lib/version'
+    load 'lib/version'
     current_version = HTMLHierarchyExtractorVersion.to_s
     p current_version
     # sh "gem push ./build/html-hierarchy-extractor-#{current_version}.gem"
