@@ -103,7 +103,7 @@ namespace 'release' do
   task :update_master_from_develop do
     sh 'git checkout master --quiet'
     sh 'git rebase develop --quiet'
-    sh 'git checkout developer --quiet'
+    sh 'git checkout develop --quiet'
   end
 end
 task default: :test
