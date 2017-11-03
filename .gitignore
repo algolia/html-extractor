@@ -1,8 +1,6 @@
 Gemfile.lock
-pkg/
+build/
 coverage/
-gemfiles/*.lock
-spec/fixtures/*/_site
 Rakefile
 
 
