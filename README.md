@@ -203,6 +203,12 @@ gem "html-hierarchy-extractor", :path => "/path/to/local/gem/folder"
 You should also run `rake gemspec` from the `html-hierarchy-extractor`
 repository the first time and if you added/deleted any file or dependency.
 
+## History
+
+This gem was previously named `html-hierarchy-extractor` but has been renamed to
+`algolia_html_extractor` to both make its intent clearer and follow gem naming
+convention. That's also why this gem directly starts at v2.0.
+
 
 [1]: https://www.algolia.com/
 [2]: https://community.algolia.com/docsearch/
