@@ -91,13 +91,13 @@ namespace 'release' do
   task :build do
     sh 'bundle install'
     sh 'mkdir -p ./build'
-    sh 'cd ./build && gem build ../html-hierarchy-extractor.gemspec'
+    sh 'cd ./build && gem build ../algolia_html_extractor.gemspec'
   end
   desc 'Push the gem to rubygems'
   task :push do
     load 'lib/version.rb'
     current_version = AlgoliaHTMLExtractorVersion.to_s
-    sh "gem push ./build/html-hierarchy-extractor-#{current_version}.gem"
+    sh "gem push ./build/algolia_html_extractor-#{current_version}.gem"
   end
   desc 'Update master'
   task :update_master_from_develop do
