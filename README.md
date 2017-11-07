@@ -1,4 +1,4 @@
-# html-extractor
+# algolia_html_extractor
 
 This gem can convert HTML content into JSON records ready to be pushed to
 Algolia.
@@ -13,13 +13,13 @@ that can be used to configure relevance.
 # Gemfile
 source 'http://rubygems.org'
 
-gem 'algolia-html-extractor', '~> 1.0'
+gem 'algolia_html_extractor', '~> 1.0'
 ```
 
 ## How to use
 
 ```ruby
-require 'algolia-html-extractor'
+require 'algolia_html_extractor'
 
 content = File.read('./index.html')
 page = AlgoliaHTMLExtractor.new(content)
