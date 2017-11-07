@@ -2,19 +2,16 @@ require File.join(File.dirname(__FILE__), 'lib', 'version')
 
 Gem::Specification.new do |gem|
   # Required attributes
-  gem.name = 'html-hierarchy-extractor'
-  gem.summary = 'Extract HTML hierarchy (headings and content) '\
-    'into a list of items'
+  gem.name = 'algolia_html_extractor'
+  gem.summary = 'Convert HTML content into Algolia records'
   gem.version = HTMLHierarchyExtractorVersion.to_s
 
   # Recommended attributes
   gem.authors = ['Tim Carry']
   gem.description = 'Take any arbitrary HTML as input and extract its '\
-    'hierarchy as a list of items, including parents and contents. It is '\
-    'primarily intended to be used along with Algolia, to improve the '\
-    'relevance of searching into huge chunks of text'
+    'content as a list of records, including contents and hierarchy.'
   gem.email = 'tim@pixelastic.com'
-  gem.homepage = 'https://github.com/pixelastic/html-hierarchy-extractor'
+  gem.homepage = 'https://github.com/algolia/html-extractor'
   gem.licenses = ['MIT']
 
   # Dependencies

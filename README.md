@@ -1,11 +1,11 @@
-# html-hierarchy-extractor
+# html-extractor
 
-This gems lets you extract the hierarchy of headings and content from any HTML
-page into an array of elements.
+This gem can convert HTML content into JSON records ready to be pushed to
+Algolia.
 
-Intended to be used with [Algolia][1] to improve relevance of search
-results inside large HTML pages. The records created are compatible with the
-[DocSearch][2] format.
+Each HTML page will yield an array of records (one for each `<p>` by default).
+Each record will contain its hierarchy in the page as well as other metadata
+that can be used to configure relevance.
 
 ## Installation
 
@@ -13,16 +13,16 @@ results inside large HTML pages. The records created are compatible with the
 # Gemfile
 source 'http://rubygems.org'
 
-gem 'html-hierarchy-extractor', '~> 1.0'
+gem 'algolia-html-extractor', '~> 1.0'
 ```
 
 ## How to use
 
 ```ruby
-require 'html-hierarchy-extractor'
+require 'algolia-html-extractor'
 
 content = File.read('./index.html')
-page = HTMLHierarchyExtractor.new(content)
+page = AlgoliaHTMLExtractor.new(content)
 records = page.extract
 puts records
 ```
@@ -123,11 +123,11 @@ relative to each other.
 
 ## Settings
 
-When instanciating `HTMLHierarchyExtractor`, you can pass a secondary `options`
+When instanciating `AlgoliaHTMLExtractor`, you can pass a secondary `options`
 argument. This attribute accepts one value, `css_selector`.
 
 ```ruby
-page = HTMLHierarchyExtractor.new(content, { css_selector: 'p,li' })
+page = AlgoliaHTMLExtractor.new(content, { css_selector: 'p,li' })
 ```
 
 This lets you change the default selector. Here instead of `<p>` paragraph,
