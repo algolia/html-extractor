@@ -98,6 +98,7 @@ namespace 'release' do
     load 'lib/version.rb'
     current_version = AlgoliaHTMLExtractorVersion.to_s
     sh "gem push ./build/algolia_html_extractor-#{current_version}.gem"
+    sh "git push origin #{current_version}"
   end
   desc 'Update master'
   task :update_master_from_develop do
