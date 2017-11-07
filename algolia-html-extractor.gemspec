@@ -4,7 +4,7 @@ Gem::Specification.new do |gem|
   # Required attributes
   gem.name = 'algolia_html_extractor'
   gem.summary = 'Convert HTML content into Algolia records'
-  gem.version = HTMLHierarchyExtractorVersion.to_s
+  gem.version = AlgoliaHTMLExtractorVersion.to_s
 
   # Recommended attributes
   gem.authors = ['Tim Carry']

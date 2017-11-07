@@ -1,13 +1,13 @@
 require 'spec_helper'
 
-describe(HTMLHierarchyExtractor) do
+describe(AlgoliaHTMLExtractor) do
   describe 'extract' do
     it 'should load from an HTML string' do
       # Given
       input = '<p>foo</p>'
 
       # When
-      actual = HTMLHierarchyExtractor.new(input).extract
+      actual = AlgoliaHTMLExtractor.new(input).extract
 
       # Then
       expect(actual.size).to eq 1
@@ -21,7 +21,7 @@ describe(HTMLHierarchyExtractor) do
       options = {
         css_selector: 'div'
       }
-      actual = HTMLHierarchyExtractor.new(input, options: options).extract
+      actual = AlgoliaHTMLExtractor.new(input, options: options).extract
 
       # Then
       expect(actual.size).to eq 1
@@ -32,7 +32,7 @@ describe(HTMLHierarchyExtractor) do
       input = '<p>foo</p>'
 
       # When
-      actual = HTMLHierarchyExtractor.new(input).extract
+      actual = AlgoliaHTMLExtractor.new(input).extract
 
       # Then
       expect(actual[0][:node]).to be_an(Nokogiri::XML::Element)
@@ -43,7 +43,7 @@ describe(HTMLHierarchyExtractor) do
       input = '<p></p>'
 
       # When
-      actual = HTMLHierarchyExtractor.new(input).extract
+      actual = AlgoliaHTMLExtractor.new(input).extract
 
       # Then
       expect(actual.size).to eq 0
@@ -56,7 +56,7 @@ describe(HTMLHierarchyExtractor) do
                <p>baz</p>'
 
       # When
-      actual = HTMLHierarchyExtractor.new(input).extract
+      actual = AlgoliaHTMLExtractor.new(input).extract
 
       # Then
       expect(actual[0][:weight][:position]).to eq 0
@@ -71,7 +71,7 @@ describe(HTMLHierarchyExtractor) do
       input = '<p>foo</p>'
 
       # When
-      actual = HTMLHierarchyExtractor.new(input).extract
+      actual = AlgoliaHTMLExtractor.new(input).extract
 
       # Then
       expect(actual[0][:html]).to eq '<p>foo</p>'
@@ -83,7 +83,7 @@ describe(HTMLHierarchyExtractor) do
                <blink>irrelevant</blink>'
 
       # When
-      actual = HTMLHierarchyExtractor.new(input).extract
+      actual = AlgoliaHTMLExtractor.new(input).extract
 
       # Then
       expect(actual[0][:html]).to eq '<p>foo</p>'
@@ -96,7 +96,7 @@ describe(HTMLHierarchyExtractor) do
       input = '<p>foo</p>'
 
       # When
-      actual = HTMLHierarchyExtractor.new(input).extract
+      actual = AlgoliaHTMLExtractor.new(input).extract
 
       # Then
       expect(actual[0][:text]).to eq 'foo'
@@ -107,7 +107,7 @@ describe(HTMLHierarchyExtractor) do
       input = '<p>UTF8‽✗✓</p>'
 
       # When
-      actual = HTMLHierarchyExtractor.new(input).extract
+      actual = AlgoliaHTMLExtractor.new(input).extract
 
       # Then
       expect(actual[0][:text]).to eq 'UTF8‽✗✓'
@@ -120,7 +120,7 @@ describe(HTMLHierarchyExtractor) do
       input = '<p>foo</p>'
 
       # When
-      actual = HTMLHierarchyExtractor.new(input).extract
+      actual = AlgoliaHTMLExtractor.new(input).extract
 
       # Then
       expect(actual[0][:tag_name]).to eq 'p'
@@ -131,7 +131,7 @@ describe(HTMLHierarchyExtractor) do
       input = '<P>foo</P>'
 
       # When
-      actual = HTMLHierarchyExtractor.new(input).extract
+      actual = AlgoliaHTMLExtractor.new(input).extract
 
       # Then
       expect(actual[0][:tag_name]).to eq 'p'
@@ -149,7 +149,7 @@ describe(HTMLHierarchyExtractor) do
                <p>Third paragraph</p>'
 
       # When
-      actual = HTMLHierarchyExtractor.new(input).extract
+      actual = AlgoliaHTMLExtractor.new(input).extract
 
       # Then
       expect(actual[0][:hierarchy][:lvl0]).to eq 'Foo'
@@ -171,7 +171,7 @@ describe(HTMLHierarchyExtractor) do
                <p>First paragraph</p>'
 
       # When
-      actual = HTMLHierarchyExtractor.new(input).extract
+      actual = AlgoliaHTMLExtractor.new(input).extract
 
       # Then
       expect(actual[0][:hierarchy][:lvl0]).to eq 'Foo'
@@ -185,7 +185,7 @@ describe(HTMLHierarchyExtractor) do
                <h1>Foo</h1>'
 
       # When
-      actual = HTMLHierarchyExtractor.new(input).extract
+      actual = AlgoliaHTMLExtractor.new(input).extract
 
       # Then
       expect(actual[0][:hierarchy][:lvl0]).to eq nil
@@ -213,7 +213,7 @@ describe(HTMLHierarchyExtractor) do
                </div>'
 
       # When
-      actual = HTMLHierarchyExtractor.new(input).extract
+      actual = AlgoliaHTMLExtractor.new(input).extract
 
       # Then
       expect(actual[0][:hierarchy][:lvl0]).to eq 'Foo'
@@ -237,7 +237,7 @@ describe(HTMLHierarchyExtractor) do
                <p>First paragraph</p>'
 
       # When
-      actual = HTMLHierarchyExtractor.new(input).extract
+      actual = AlgoliaHTMLExtractor.new(input).extract
 
       # Then
       expect(actual[0][:anchor]).to eq 'anchor'
@@ -249,7 +249,7 @@ describe(HTMLHierarchyExtractor) do
                <p>First paragraph</p>'
 
       # When
-      actual = HTMLHierarchyExtractor.new(input).extract
+      actual = AlgoliaHTMLExtractor.new(input).extract
 
       # Then
       expect(actual[0][:anchor]).to eq nil
@@ -261,7 +261,7 @@ describe(HTMLHierarchyExtractor) do
                <p>First paragraph</p>'
 
       # When
-      actual = HTMLHierarchyExtractor.new(input).extract
+      actual = AlgoliaHTMLExtractor.new(input).extract
 
       # Then
       expect(actual[0][:anchor]).to eq 'anchor'
@@ -273,7 +273,7 @@ describe(HTMLHierarchyExtractor) do
                <p>First paragraph</p>'
 
       # When
-      actual = HTMLHierarchyExtractor.new(input).extract
+      actual = AlgoliaHTMLExtractor.new(input).extract
 
       # Then
       expect(actual[0][:anchor]).to eq nil
@@ -289,7 +289,7 @@ describe(HTMLHierarchyExtractor) do
                <p>Third paragraph</p>'
 
       # When
-      actual = HTMLHierarchyExtractor.new(input).extract
+      actual = AlgoliaHTMLExtractor.new(input).extract
 
       # Then
       expect(actual[0][:anchor]).to eq 'anchor'
@@ -317,7 +317,7 @@ describe(HTMLHierarchyExtractor) do
                </div>'
 
       # When
-      actual = HTMLHierarchyExtractor.new(input).extract
+      actual = AlgoliaHTMLExtractor.new(input).extract
 
       # Then
       expect(actual[0][:anchor]).to eq 'anchor'
@@ -331,7 +331,7 @@ describe(HTMLHierarchyExtractor) do
                <p>First paragraph</p>'
 
       # When
-      actual = HTMLHierarchyExtractor.new(input).extract
+      actual = AlgoliaHTMLExtractor.new(input).extract
 
       # Then
       expect(actual[0][:anchor]).to eq 'anchor'
@@ -345,8 +345,8 @@ describe(HTMLHierarchyExtractor) do
       input_b = '<p>bar</p>'
 
       # When
-      actual_a = HTMLHierarchyExtractor.new(input_a).extract[0]
-      actual_b = HTMLHierarchyExtractor.new(input_b).extract[0]
+      actual_a = AlgoliaHTMLExtractor.new(input_a).extract[0]
+      actual_b = AlgoliaHTMLExtractor.new(input_b).extract[0]
 
       # Then
       expect(actual_a[:uuid]).not_to eq(actual_b[:uuid])
@@ -358,8 +358,8 @@ describe(HTMLHierarchyExtractor) do
       input_b = '<p class="bar">foo</p>'
 
       # When
-      actual_a = HTMLHierarchyExtractor.new(input_a).extract[0]
-      actual_b = HTMLHierarchyExtractor.new(input_b).extract[0]
+      actual_a = AlgoliaHTMLExtractor.new(input_a).extract[0]
+      actual_b = AlgoliaHTMLExtractor.new(input_b).extract[0]
 
       # Then
       expect(actual_a[:uuid]).not_to eq(actual_b[:uuid])
@@ -371,8 +371,8 @@ describe(HTMLHierarchyExtractor) do
       input_b = '<p>foo</p><p>foo again</p><p>bar</p>'
 
       # When
-      actual_a = HTMLHierarchyExtractor.new(input_a).extract[1]
-      actual_b = HTMLHierarchyExtractor.new(input_b).extract[2]
+      actual_a = AlgoliaHTMLExtractor.new(input_a).extract[1]
+      actual_b = AlgoliaHTMLExtractor.new(input_b).extract[2]
 
       # Then
       expect(actual_a[:uuid]).not_to eq(actual_b[:uuid])
@@ -384,8 +384,8 @@ describe(HTMLHierarchyExtractor) do
       input_b = '<h1 name="bar">bar</h1><p>bar</p>'
 
       # When
-      actual_a = HTMLHierarchyExtractor.new(input_a).extract[0]
-      actual_b = HTMLHierarchyExtractor.new(input_b).extract[0]
+      actual_a = AlgoliaHTMLExtractor.new(input_a).extract[0]
+      actual_b = AlgoliaHTMLExtractor.new(input_b).extract[0]
 
       # Then
       expect(actual_a[:uuid]).not_to eq(actual_b[:uuid])
@@ -397,8 +397,8 @@ describe(HTMLHierarchyExtractor) do
       input_b = '<h1 name="foo">foo</h1><p>bar</p>'
 
       # When
-      actual_a = HTMLHierarchyExtractor.new(input_a).extract[0]
-      actual_b = HTMLHierarchyExtractor.new(input_b).extract[0]
+      actual_a = AlgoliaHTMLExtractor.new(input_a).extract[0]
+      actual_b = AlgoliaHTMLExtractor.new(input_b).extract[0]
 
       # Then
       expect(actual_a[:uuid]).to eq(actual_b[:uuid])
@@ -411,7 +411,7 @@ describe(HTMLHierarchyExtractor) do
       input = '<p>foo</p>'
 
       # When
-      actual = HTMLHierarchyExtractor.new(input).extract
+      actual = AlgoliaHTMLExtractor.new(input).extract
 
       # Then
       expect(actual[0][:weight][:heading]).to eq 100
@@ -427,7 +427,7 @@ describe(HTMLHierarchyExtractor) do
                <h6 name="six">bar</h6><p>foo</p>'
 
       # When
-      actual = HTMLHierarchyExtractor.new(input).extract
+      actual = AlgoliaHTMLExtractor.new(input).extract
 
       # Then
       expect(actual[0][:weight][:heading]).to eq 90

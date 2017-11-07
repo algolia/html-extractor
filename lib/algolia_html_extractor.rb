@@ -3,7 +3,7 @@ require 'digest/md5'
 
 # Extract content from an HTML page in the form of items with associated
 # hierarchy data
-class HTMLHierarchyExtractor
+class AlgoliaHTMLExtractor
   def initialize(input, options: {})
     @dom = Nokogiri::HTML(input)
     default_options = {

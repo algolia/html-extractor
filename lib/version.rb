@@ -1,5 +1,5 @@
 # Expose gem version
 # rubocop:disable Style/SingleLineMethods
-class HTMLHierarchyExtractorVersion
+class AlgoliaHTMLExtractorVersion
   def self.to_s; '1.0.10' end
 end

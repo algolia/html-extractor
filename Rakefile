@@ -72,7 +72,7 @@ namespace 'release' do
     require_relative version_file_path
 
     # Ask for new version
-    old_version = HTMLHierarchyExtractorVersion.to_s
+    old_version = AlgoliaHTMLExtractorVersion.to_s
     puts "Current version is #{old_version}"
     puts 'Enter new version:'
     new_version = STDIN.gets.strip
@@ -96,7 +96,7 @@ namespace 'release' do
   desc 'Push the gem to rubygems'
   task :push do
     load 'lib/version.rb'
-    current_version = HTMLHierarchyExtractorVersion.to_s
+    current_version = AlgoliaHTMLExtractorVersion.to_s
     sh "gem push ./build/html-hierarchy-extractor-#{current_version}.gem"
   end
   desc 'Update master'
