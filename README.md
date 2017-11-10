@@ -67,7 +67,7 @@ Here is one of the records extracted:
 
 ```ruby
 {
-  :uuid => "1f5923d5a60e998704f201bbe9964811",
+  :objectID => "1f5923d5a60e998704f201bbe9964811",
   :tag_name => "p",
   :html => "<p>The hero quits his job, hits the road, or whatever cuts him from his previous life.</p>",
   :text => "The hero quits his job, hits the road, or whatever cuts him from his previous life.",
@@ -89,7 +89,7 @@ Here is one of the records extracted:
 }
 ```
 
-Each record has a `uuid` that uniquely identify it (computed by a hash of all
+Each record has a `objectID` that uniquely identify it (computed by a hash of all
 the other values).
 
 It also contains the HTML tag name in `tag_name` (by default `<p>`

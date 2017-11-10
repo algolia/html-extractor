@@ -133,7 +133,7 @@ class AlgoliaHTMLExtractor
           heading: heading_weight(current_lvl)
         }
       }
-      item[:uuid] = uuid(item)
+      item[:objectID] = uuid(item)
       items << item
 
       current_position += 1

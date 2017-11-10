@@ -349,7 +349,7 @@ describe(AlgoliaHTMLExtractor) do
       actual_b = AlgoliaHTMLExtractor.new(input_b).extract[0]
 
       # Then
-      expect(actual_a[:uuid]).not_to eq(actual_b[:uuid])
+      expect(actual_a[:objectID]).not_to eq(actual_b[:objectID])
     end
 
     it 'should give different uuid if different HTML tag' do
@@ -362,7 +362,7 @@ describe(AlgoliaHTMLExtractor) do
       actual_b = AlgoliaHTMLExtractor.new(input_b).extract[0]
 
       # Then
-      expect(actual_a[:uuid]).not_to eq(actual_b[:uuid])
+      expect(actual_a[:objectID]).not_to eq(actual_b[:objectID])
     end
 
     it 'should give different uuid if different position in page' do
@@ -375,7 +375,7 @@ describe(AlgoliaHTMLExtractor) do
       actual_b = AlgoliaHTMLExtractor.new(input_b).extract[2]
 
       # Then
-      expect(actual_a[:uuid]).not_to eq(actual_b[:uuid])
+      expect(actual_a[:objectID]).not_to eq(actual_b[:objectID])
     end
 
     it 'should give different uuid if different parent header' do
@@ -388,7 +388,7 @@ describe(AlgoliaHTMLExtractor) do
       actual_b = AlgoliaHTMLExtractor.new(input_b).extract[0]
 
       # Then
-      expect(actual_a[:uuid]).not_to eq(actual_b[:uuid])
+      expect(actual_a[:objectID]).not_to eq(actual_b[:objectID])
     end
 
     it 'should always give the same uuid for the same content' do
@@ -401,7 +401,7 @@ describe(AlgoliaHTMLExtractor) do
       actual_b = AlgoliaHTMLExtractor.new(input_b).extract[0]
 
       # Then
-      expect(actual_a[:uuid]).to eq(actual_b[:uuid])
+      expect(actual_a[:objectID]).to eq(actual_b[:objectID])
     end
   end
 
