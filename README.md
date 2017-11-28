@@ -1,5 +1,11 @@
 # algolia_html_extractor
 
+[![Gem Version][1]](http://badge.fury.io/rb/algolia_html_extractor)
+[![Build Status][2]](https://travis-ci.org/algolia/html-extractor)
+[![Coverage Status][3]](https://coveralls.io/github/algolia/html-extractor?branch=master)
+[![Code Climate][4]](https://codeclimate.com/github/algolia/html-extractor)
+![Ruby >= 2.3.0][5]
+
 This gem can convert HTML content into JSON records ready to be pushed to
 Algolia.
 
@@ -93,13 +99,13 @@ Each record has a `objectID` that uniquely identify it (computed by a hash of al
 the other values).
 
 It also contains the HTML tag name in `tag_name` (by default `<p>`
-paragraphs are extracted, but see the [settings][3] on how to change it).
+paragraphs are extracted, but see the [settings][6] on how to change it).
 
 `html` contains the whole `outerContent` of the element, including the wrapping
 tags and inner children. The `text` attribute contains the textual content,
 stripping out all HTML.
 
-`node` contains the [Nokogiri node][4] instance. The lib uses it internally to
+`node` contains the [Nokogiri node][7] instance. The lib uses it internally to
 extract all the relevant information but is also exposed if you want to process
 the node further.
 
@@ -109,7 +115,7 @@ Anchors are searched in `name` and `id` attributes of headings.
 
 `hierarchy` then contains a snapshot of the current heading hierarchy of the
 paragraph. The `lvlX` syntax is used to be compatible with the records
-[DocSearch][5] is using.
+[DocSearch][8] is using.
 
 The `weight` attribute is used to provide an easy way to rank two records
 relative to each other.
@@ -142,7 +148,7 @@ and generic bug reports.
 ## Bug Reports and feature requests
 
 For any bug or ideas of new features, please start by checking in the
-[issues](https://github.com/pixelastic/html-hierarchy-extractor/issues) tab if
+[issues][9] tab if
 it hasn't been discussed already. If not, feel free to open a new issue.
 
 ## Pull Requests
@@ -165,7 +171,7 @@ cp ./scripts/git_hooks/* ./.git/hooks
 This will add a `pre-commit` and `pre-push` scripts that will respectively check
 that all files are lint-free before committing, and pass all tests before
 pushing. If any of those two hooks give your errors, you should fix the code
-before commiting or pushing.
+before committing or pushing.
 
 Having those steps helps keeping the codebase clean as much as possible, and
 avoid polluting discussion in PR about style.
@@ -182,7 +188,7 @@ Rubocop, and the configuration can be found in `.rubocop.yml`.
 
 ## Test
 
-`rake test` will run all the tests. 
+`rake test` will run all the tests.
 
 `rake coverage` will do the same, but also adding the code coverage files to
 `./coverage`. This should be useful in a CI environment.
@@ -210,8 +216,12 @@ This gem was previously named `html-hierarchy-extractor` but has been renamed to
 convention. That's also why this gem directly starts at v2.0.
 
 
-[1]: https://www.algolia.com/
-[2]: https://community.algolia.com/docsearch/
-[3]: #Settings
-[4]: http://www.rubydoc.info/github/sparklemotion/nokogiri/Nokogiri/XML/Node
-[5]: https://community.algolia.com/docsearch/
+[1]: https://badge.fury.io/rb/algolia_html_extractor.svg
+[2]: https://travis-ci.org/algolia/html-extractor.svg?branch=master
+[3]: https://coveralls.io/repos/algolia/html-extractor/badge.svg?branch=master&service=github
+[4]: https://codeclimate.com/github/algolia/html-extractor/badges/gpa.svg
+[5]: https://img.shields.io/badge/ruby-%3E%3D%202.3.0-green.svg
+[6]: #Settings
+[7]: http://www.rubydoc.info/github/sparklemotion/nokogiri/Nokogiri/XML/Node
+[8]: https://community.algolia.com/docsearch/
+[9]: https://github.com/pixelastic/html-hierarchy-extractor/issues

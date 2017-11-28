@@ -29,7 +29,10 @@ RSpec::Core::RakeTask.new(:test_details) do |spec|
   spec.rspec_opts = '--color --format documentation'
   spec.pattern = FileList['spec/**/*_spec.rb']
 end
-task spec: :test
+desc 'Run tests in all Ruby versions (with full details)'
+task :test_all_ruby_versions do
+  puts 'Please, run ./scripts/test_all_ruby_versions manually'
+end
 
 # COVERAGE
 desc 'Code coverage detail'
