@@ -118,12 +118,12 @@ class AlgoliaHTMLExtractor
       next unless node.matches?(@options[:css_selector])
 
       # Stop if node is empty
-      text = extract_text(node)
-      next if text.empty?
+      content = extract_text(node)
+      next if content.empty?
 
       item = {
         html: extract_html(node),
-        text: text,
+        content: content,
         tag_name: extract_tag_name(node),
         hierarchy: current_hierarchy.clone,
         anchor: current_anchor,

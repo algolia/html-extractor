@@ -99,7 +99,7 @@ describe(AlgoliaHTMLExtractor) do
       actual = AlgoliaHTMLExtractor.new(input).extract
 
       # Then
-      expect(actual[0][:text]).to eq 'foo'
+      expect(actual[0][:content]).to eq 'foo'
     end
 
     it 'should extract UTF8 correctly' do
@@ -110,7 +110,7 @@ describe(AlgoliaHTMLExtractor) do
       actual = AlgoliaHTMLExtractor.new(input).extract
 
       # Then
-      expect(actual[0][:text]).to eq 'UTF8‽✗✓'
+      expect(actual[0][:content]).to eq 'UTF8‽✗✓'
     end
   end
 
