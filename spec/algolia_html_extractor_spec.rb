@@ -342,15 +342,28 @@ describe(AlgoliaHTMLExtractor) do
   describe 'uuid' do
     it 'should give different uuid if different content' do
       # Given
-      input_a = '<p>foo</p>'
-      input_b = '<p>bar</p>'
+      input_a = { content: 'foo' }
+      input_b = { content: 'bar' }
 
       # When
-      actual_a = AlgoliaHTMLExtractor.run(input_a)[0]
-      actual_b = AlgoliaHTMLExtractor.run(input_b)[0]
+      actual_a = AlgoliaHTMLExtractor.uuid(input_a)
+      actual_b = AlgoliaHTMLExtractor.uuid(input_b)
 
       # Then
-      expect(actual_a[:objectID]).not_to eq(actual_b[:objectID])
+      expect(actual_a).not_to eq(actual_b)
+    end
+
+    it 'should ignore the objectID key' do
+      # Given
+      input_a = { content: 'foo', objectID: 'AAA' }
+      input_b = { content: 'foo', objectID: 'BBB' }
+
+      # When
+      actual_a = AlgoliaHTMLExtractor.uuid(input_a)
+      actual_b = AlgoliaHTMLExtractor.uuid(input_b)
+
+      # Then
+      expect(actual_a).to eq(actual_b)
     end
 
     it 'should give different uuid if different HTML tag' do

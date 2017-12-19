@@ -63,7 +63,7 @@ module AlgoliaHTMLExtractor
           heading: heading_weight(current_lvl)
         }
       }
-      item[:objectID] = AlgoliaHTMLExtractor.uuid(item)
+      item[:objectID] = uuid(item)
       items << item
 
       current_position += 1
@@ -116,6 +116,9 @@ module AlgoliaHTMLExtractor
   ##
   # Generate a unique identifier for the item
   def self.uuid(item)
+    # We don't use the objectID as part of the hash algorithm
+
+    item.delete(:objectID)
     # We first get all the keys of the object, sorted alphabetically...
     ordered_keys = item.keys.sort
 
@@ -123,7 +126,7 @@ module AlgoliaHTMLExtractor
     ordered_array = ordered_keys.map do |key|
       value = item[key]
       # We apply the method recursively on other hashes
-      value = AlgoliaHTMLExtractor.uuid(value) if value.is_a?(Hash)
+      value = uuid(value) if value.is_a?(Hash)
       "#{key}=#{value}"
     end
 
