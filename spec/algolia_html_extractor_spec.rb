@@ -1,5 +1,6 @@
 require 'spec_helper'
 
+# rubocop:disable Metrics/BlockLength
 describe(AlgoliaHTMLExtractor) do
   describe 'extract' do
     it 'should load from an HTML string' do
@@ -7,7 +8,7 @@ describe(AlgoliaHTMLExtractor) do
       input = '<p>foo</p>'
 
       # When
-      actual = AlgoliaHTMLExtractor.new(input).extract
+      actual = AlgoliaHTMLExtractor.run(input)
 
       # Then
       expect(actual.size).to eq 1
@@ -21,7 +22,7 @@ describe(AlgoliaHTMLExtractor) do
       options = {
         css_selector: 'div'
       }
-      actual = AlgoliaHTMLExtractor.new(input, options: options).extract
+      actual = AlgoliaHTMLExtractor.run(input, options: options)
 
       # Then
       expect(actual.size).to eq 1
@@ -32,7 +33,7 @@ describe(AlgoliaHTMLExtractor) do
       input = '<p>foo</p>'
 
       # When
-      actual = AlgoliaHTMLExtractor.new(input).extract
+      actual = AlgoliaHTMLExtractor.run(input)
 
       # Then
       expect(actual[0][:node]).to be_an(Nokogiri::XML::Element)
@@ -43,7 +44,7 @@ describe(AlgoliaHTMLExtractor) do
       input = '<p></p>'
 
       # When
-      actual = AlgoliaHTMLExtractor.new(input).extract
+      actual = AlgoliaHTMLExtractor.run(input)
 
       # Then
       expect(actual.size).to eq 0
@@ -56,7 +57,7 @@ describe(AlgoliaHTMLExtractor) do
                <p>baz</p>'
 
       # When
-      actual = AlgoliaHTMLExtractor.new(input).extract
+      actual = AlgoliaHTMLExtractor.run(input)
 
       # Then
       expect(actual[0][:weight][:position]).to eq 0
@@ -71,7 +72,7 @@ describe(AlgoliaHTMLExtractor) do
       input = '<p>foo</p>'
 
       # When
-      actual = AlgoliaHTMLExtractor.new(input).extract
+      actual = AlgoliaHTMLExtractor.run(input)
 
       # Then
       expect(actual[0][:html]).to eq '<p>foo</p>'
@@ -83,7 +84,7 @@ describe(AlgoliaHTMLExtractor) do
                <blink>irrelevant</blink>'
 
       # When
-      actual = AlgoliaHTMLExtractor.new(input).extract
+      actual = AlgoliaHTMLExtractor.run(input)
 
       # Then
       expect(actual[0][:html]).to eq '<p>foo</p>'
@@ -96,7 +97,7 @@ describe(AlgoliaHTMLExtractor) do
       input = '<p>foo</p>'
 
       # When
-      actual = AlgoliaHTMLExtractor.new(input).extract
+      actual = AlgoliaHTMLExtractor.run(input)
 
       # Then
       expect(actual[0][:content]).to eq 'foo'
@@ -107,7 +108,7 @@ describe(AlgoliaHTMLExtractor) do
       input = '<p>UTF8‽✗✓</p>'
 
       # When
-      actual = AlgoliaHTMLExtractor.new(input).extract
+      actual = AlgoliaHTMLExtractor.run(input)
 
       # Then
       expect(actual[0][:content]).to eq 'UTF8‽✗✓'
@@ -120,7 +121,7 @@ describe(AlgoliaHTMLExtractor) do
       input = '<p>foo</p>'
 
       # When
-      actual = AlgoliaHTMLExtractor.new(input).extract
+      actual = AlgoliaHTMLExtractor.run(input)
 
       # Then
       expect(actual[0][:tag_name]).to eq 'p'
@@ -131,7 +132,7 @@ describe(AlgoliaHTMLExtractor) do
       input = '<P>foo</P>'
 
       # When
-      actual = AlgoliaHTMLExtractor.new(input).extract
+      actual = AlgoliaHTMLExtractor.run(input)
 
       # Then
       expect(actual[0][:tag_name]).to eq 'p'
@@ -149,7 +150,7 @@ describe(AlgoliaHTMLExtractor) do
                <p>Third paragraph</p>'
 
       # When
-      actual = AlgoliaHTMLExtractor.new(input).extract
+      actual = AlgoliaHTMLExtractor.run(input)
 
       # Then
       expect(actual[0][:hierarchy][:lvl0]).to eq 'Foo'
@@ -171,7 +172,7 @@ describe(AlgoliaHTMLExtractor) do
                <p>First paragraph</p>'
 
       # When
-      actual = AlgoliaHTMLExtractor.new(input).extract
+      actual = AlgoliaHTMLExtractor.run(input)
 
       # Then
       expect(actual[0][:hierarchy][:lvl0]).to eq 'Foo'
@@ -185,7 +186,7 @@ describe(AlgoliaHTMLExtractor) do
                <h1>Foo</h1>'
 
       # When
-      actual = AlgoliaHTMLExtractor.new(input).extract
+      actual = AlgoliaHTMLExtractor.run(input)
 
       # Then
       expect(actual[0][:hierarchy][:lvl0]).to eq nil
@@ -213,7 +214,7 @@ describe(AlgoliaHTMLExtractor) do
                </div>'
 
       # When
-      actual = AlgoliaHTMLExtractor.new(input).extract
+      actual = AlgoliaHTMLExtractor.run(input)
 
       # Then
       expect(actual[0][:hierarchy][:lvl0]).to eq 'Foo'
@@ -237,7 +238,7 @@ describe(AlgoliaHTMLExtractor) do
                <p>First paragraph</p>'
 
       # When
-      actual = AlgoliaHTMLExtractor.new(input).extract
+      actual = AlgoliaHTMLExtractor.run(input)
 
       # Then
       expect(actual[0][:anchor]).to eq 'anchor'
@@ -249,7 +250,7 @@ describe(AlgoliaHTMLExtractor) do
                <p>First paragraph</p>'
 
       # When
-      actual = AlgoliaHTMLExtractor.new(input).extract
+      actual = AlgoliaHTMLExtractor.run(input)
 
       # Then
       expect(actual[0][:anchor]).to eq nil
@@ -261,7 +262,7 @@ describe(AlgoliaHTMLExtractor) do
                <p>First paragraph</p>'
 
       # When
-      actual = AlgoliaHTMLExtractor.new(input).extract
+      actual = AlgoliaHTMLExtractor.run(input)
 
       # Then
       expect(actual[0][:anchor]).to eq 'anchor'
@@ -273,7 +274,7 @@ describe(AlgoliaHTMLExtractor) do
                <p>First paragraph</p>'
 
       # When
-      actual = AlgoliaHTMLExtractor.new(input).extract
+      actual = AlgoliaHTMLExtractor.run(input)
 
       # Then
       expect(actual[0][:anchor]).to eq nil
@@ -289,7 +290,7 @@ describe(AlgoliaHTMLExtractor) do
                <p>Third paragraph</p>'
 
       # When
-      actual = AlgoliaHTMLExtractor.new(input).extract
+      actual = AlgoliaHTMLExtractor.run(input)
 
       # Then
       expect(actual[0][:anchor]).to eq 'anchor'
@@ -317,7 +318,7 @@ describe(AlgoliaHTMLExtractor) do
                </div>'
 
       # When
-      actual = AlgoliaHTMLExtractor.new(input).extract
+      actual = AlgoliaHTMLExtractor.run(input)
 
       # Then
       expect(actual[0][:anchor]).to eq 'anchor'
@@ -331,7 +332,7 @@ describe(AlgoliaHTMLExtractor) do
                <p>First paragraph</p>'
 
       # When
-      actual = AlgoliaHTMLExtractor.new(input).extract
+      actual = AlgoliaHTMLExtractor.run(input)
 
       # Then
       expect(actual[0][:anchor]).to eq 'anchor'
@@ -345,8 +346,8 @@ describe(AlgoliaHTMLExtractor) do
       input_b = '<p>bar</p>'
 
       # When
-      actual_a = AlgoliaHTMLExtractor.new(input_a).extract[0]
-      actual_b = AlgoliaHTMLExtractor.new(input_b).extract[0]
+      actual_a = AlgoliaHTMLExtractor.run(input_a)[0]
+      actual_b = AlgoliaHTMLExtractor.run(input_b)[0]
 
       # Then
       expect(actual_a[:objectID]).not_to eq(actual_b[:objectID])
@@ -358,8 +359,8 @@ describe(AlgoliaHTMLExtractor) do
       input_b = '<p class="bar">foo</p>'
 
       # When
-      actual_a = AlgoliaHTMLExtractor.new(input_a).extract[0]
-      actual_b = AlgoliaHTMLExtractor.new(input_b).extract[0]
+      actual_a = AlgoliaHTMLExtractor.run(input_a)[0]
+      actual_b = AlgoliaHTMLExtractor.run(input_b)[0]
 
       # Then
       expect(actual_a[:objectID]).not_to eq(actual_b[:objectID])
@@ -371,8 +372,8 @@ describe(AlgoliaHTMLExtractor) do
       input_b = '<p>foo</p><p>foo again</p><p>bar</p>'
 
       # When
-      actual_a = AlgoliaHTMLExtractor.new(input_a).extract[1]
-      actual_b = AlgoliaHTMLExtractor.new(input_b).extract[2]
+      actual_a = AlgoliaHTMLExtractor.run(input_a)[1]
+      actual_b = AlgoliaHTMLExtractor.run(input_b)[2]
 
       # Then
       expect(actual_a[:objectID]).not_to eq(actual_b[:objectID])
@@ -384,8 +385,8 @@ describe(AlgoliaHTMLExtractor) do
       input_b = '<h1 name="bar">bar</h1><p>bar</p>'
 
       # When
-      actual_a = AlgoliaHTMLExtractor.new(input_a).extract[0]
-      actual_b = AlgoliaHTMLExtractor.new(input_b).extract[0]
+      actual_a = AlgoliaHTMLExtractor.run(input_a)[0]
+      actual_b = AlgoliaHTMLExtractor.run(input_b)[0]
 
       # Then
       expect(actual_a[:objectID]).not_to eq(actual_b[:objectID])
@@ -397,8 +398,8 @@ describe(AlgoliaHTMLExtractor) do
       input_b = '<h1 name="foo">foo</h1><p>bar</p>'
 
       # When
-      actual_a = AlgoliaHTMLExtractor.new(input_a).extract[0]
-      actual_b = AlgoliaHTMLExtractor.new(input_b).extract[0]
+      actual_a = AlgoliaHTMLExtractor.run(input_a)[0]
+      actual_b = AlgoliaHTMLExtractor.run(input_b)[0]
 
       # Then
       expect(actual_a[:objectID]).to eq(actual_b[:objectID])
@@ -411,7 +412,7 @@ describe(AlgoliaHTMLExtractor) do
       input = '<p>foo</p>'
 
       # When
-      actual = AlgoliaHTMLExtractor.new(input).extract
+      actual = AlgoliaHTMLExtractor.run(input)
 
       # Then
       expect(actual[0][:weight][:heading]).to eq 100
@@ -427,7 +428,7 @@ describe(AlgoliaHTMLExtractor) do
                <h6 name="six">bar</h6><p>foo</p>'
 
       # When
-      actual = AlgoliaHTMLExtractor.new(input).extract
+      actual = AlgoliaHTMLExtractor.run(input)
 
       # Then
       expect(actual[0][:weight][:heading]).to eq 90

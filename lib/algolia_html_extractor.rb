@@ -3,88 +3,17 @@ require 'digest/md5'
 
 # Extract content from an HTML page in the form of items with associated
 # hierarchy data
-class AlgoliaHTMLExtractor
-  def initialize(input, options: {})
-    @dom = Nokogiri::HTML(input)
+module AlgoliaHTMLExtractor
+  def self.run(input, options: {})
     default_options = {
       css_selector: 'p'
     }
-    @options = default_options.merge(options)
-  end
+    options = default_options.merge(options)
 
-  # Returns the outer HTML of a given node
-  #
-  # eg.
-  # <p>foo</p> => <p>foo</p>
-  def extract_html(node)
-    node.to_s.strip
-  end
-
-  # Returns the inner HTML of a given node
-  #
-  # eg.
-  # <p>foo</p> => foo
-  def extract_text(node)
-    node.content
-  end
-
-  # Returns the tag name of a given node
-  #
-  # eg
-  # <p>foo</p> => p
-  def extract_tag_name(node)
-    node.name.downcase
-  end
-
-  # Returns the anchor to the node
-  #
-  # eg.
-  # <h1 name="anchor">Foo</h1> => anchor
-  # <h1 id="anchor">Foo</h1> => anchor
-  # <h1><a name="anchor">Foo</a></h1> => anchor
-  def extract_anchor(node)
-    anchor = node.attr('name') || node.attr('id') || nil
-    return anchor unless anchor.nil?
-
-    # No anchor found directly in the header, search on children
-    subelement = node.css('[name],[id]')
-    return extract_anchor(subelement[0]) unless subelement.empty?
-
-    nil
-  end
-
-  ##
-  # Generate a unique identifier for the item
-  def uuid(item)
-    # We first get all the keys of the object, sorted alphabetically...
-    ordered_keys = item.keys.sort
-
-    # ...then we build a huge array of "key=value" pairs...
-    ordered_array = ordered_keys.map do |key|
-      value = item[key]
-      # We apply the method recursively on other hashes
-      value = uuid(value) if value.is_a?(Hash)
-      "#{key}=#{value}"
-    end
-
-    # ...then we build a unique md5 hash of it
-    Digest::MD5.hexdigest(ordered_array.join(','))
-  end
-
-  ##
-  # Get a relative numeric value of the importance of the heading
-  # 100 for top level, then -10 per heading
-  def heading_weight(heading_level)
-    weight = 100
-    return weight if heading_level.nil?
-    weight - ((heading_level + 1) * 10)
-  end
-
-  def extract
     heading_selector = 'h1,h2,h3,h4,h5,h6'
     # We select all nodes that match either the headings or the elements to
     # extract. This will allow us to loop over it in order it appears in the DOM
-    all_selector = "#{heading_selector},#{@options[:css_selector]}"
+    all_selector = "#{heading_selector},#{options[:css_selector]}"
 
     items = []
     current_hierarchy = {
@@ -99,7 +28,8 @@ class AlgoliaHTMLExtractor
     current_lvl = nil # Current closest hierarchy level
     current_anchor = nil # Current closest anchor
 
-    @dom.css(all_selector).each do |node|
+    dom = Nokogiri::HTML(input)
+    dom.css(all_selector).each do |node|
       # If it's a heading, we update our current hierarchy
       if node.matches?(heading_selector)
         # Which level heading is it?
@@ -115,7 +45,7 @@ class AlgoliaHTMLExtractor
       end
 
       # Stop if node is not to be extracted
-      next unless node.matches?(@options[:css_selector])
+      next unless node.matches?(options[:css_selector])
 
       # Stop if node is empty
       content = extract_text(node)
@@ -133,12 +63,80 @@ class AlgoliaHTMLExtractor
           heading: heading_weight(current_lvl)
         }
       }
-      item[:objectID] = uuid(item)
+      item[:objectID] = AlgoliaHTMLExtractor.uuid(item)
       items << item
 
       current_position += 1
     end
 
     items
+  end
+
+  # Returns the outer HTML of a given node
+  #
+  # eg.
+  # <p>foo</p> => <p>foo</p>
+  def self.extract_html(node)
+    node.to_s.strip
+  end
+
+  # Returns the inner HTML of a given node
+  #
+  # eg.
+  # <p>foo</p> => foo
+  def self.extract_text(node)
+    node.content
+  end
+
+  # Returns the tag name of a given node
+  #
+  # eg
+  # <p>foo</p> => p
+  def self.extract_tag_name(node)
+    node.name.downcase
+  end
+
+  # Returns the anchor to the node
+  #
+  # eg.
+  # <h1 name="anchor">Foo</h1> => anchor
+  # <h1 id="anchor">Foo</h1> => anchor
+  # <h1><a name="anchor">Foo</a></h1> => anchor
+  def self.extract_anchor(node)
+    anchor = node.attr('name') || node.attr('id') || nil
+    return anchor unless anchor.nil?
+
+    # No anchor found directly in the header, search on children
+    subelement = node.css('[name],[id]')
+    return extract_anchor(subelement[0]) unless subelement.empty?
+
+    nil
+  end
+
+  ##
+  # Generate a unique identifier for the item
+  def self.uuid(item)
+    # We first get all the keys of the object, sorted alphabetically...
+    ordered_keys = item.keys.sort
+
+    # ...then we build a huge array of "key=value" pairs...
+    ordered_array = ordered_keys.map do |key|
+      value = item[key]
+      # We apply the method recursively on other hashes
+      value = AlgoliaHTMLExtractor.uuid(value) if value.is_a?(Hash)
+      "#{key}=#{value}"
+    end
+
+    # ...then we build a unique md5 hash of it
+    Digest::MD5.hexdigest(ordered_array.join(','))
+  end
+
+  ##
+  # Get a relative numeric value of the importance of the heading
+  # 100 for top level, then -10 per heading
+  def self.heading_weight(heading_level)
+    weight = 100
+    return weight if heading_level.nil?
+    weight - ((heading_level + 1) * 10)
   end
 end
