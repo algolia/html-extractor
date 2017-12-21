@@ -90,7 +90,7 @@ namespace 'release' do
     # Create the git tag
     sh "git tag -am 'tag v#{new_version}' #{new_version}"
   end
-  desc 'Build the gem in ./build directory'
+  desc 'Build the gem'
   task :build do
     sh 'bundle install'
     sh 'gem build algolia_html_extractor.gemspec'
