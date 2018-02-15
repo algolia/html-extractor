@@ -4,16 +4,24 @@ require 'digest/md5'
 # Extract content from an HTML page in the form of items with associated
 # hierarchy data
 module AlgoliaHTMLExtractor
-  def self.run(input, options: {})
+  # Extractor options, applying default options when none set
+  def self.default_options(options)
     default_options = {
-      css_selector: 'p'
+      css_selector: 'p',
+      heading_selector: 'h1,h2,h3,h4,h5,h6'
     }
-    options = default_options.merge(options)
+    default_options.merge(options)
+  end
 
-    heading_selector = 'h1,h2,h3,h4,h5,h6'
-    # We select all nodes that match either the headings or the elements to
-    # extract. This will allow us to loop over it in order it appears in the DOM
-    all_selector = "#{heading_selector},#{options[:css_selector]}"
+  # Getting a list of HTML nodes from an input and a CSS selector
+  def self.css(input, selector)
+    Nokogiri::HTML(input).css(selector)
+  end
+
+  def self.run(input, options: {})
+    options = default_options(options)
+    heading_selector = options[:heading_selector]
+    css_selector = options[:css_selector]
 
     items = []
     current_hierarchy = {
@@ -28,8 +36,9 @@ module AlgoliaHTMLExtractor
     current_lvl = nil # Current closest hierarchy level
     current_anchor = nil # Current closest anchor
 
-    dom = Nokogiri::HTML(input)
-    dom.css(all_selector).each do |node|
+    # We select all nodes that match either the headings or the elements to
+    # extract. This will allow us to loop over it in order it appears in the DOM
+    css(input, "#{heading_selector},#{css_selector}").each do |node|
       # If it's a heading, we update our current hierarchy
       if node.matches?(heading_selector)
         # Which level heading is it?
@@ -45,7 +54,7 @@ module AlgoliaHTMLExtractor
       end
 
       # Stop if node is not to be extracted
-      next unless node.matches?(options[:css_selector])
+      next unless node.matches?(css_selector)
 
       # Stop if node is empty
       content = extract_text(node)

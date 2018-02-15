@@ -2,7 +2,7 @@ require 'spec_helper'
 
 # rubocop:disable Metrics/BlockLength
 describe(AlgoliaHTMLExtractor) do
-  describe 'extract' do
+  describe '.run' do
     it 'should load from an HTML string' do
       # Given
       input = '<p>foo</p>'
@@ -453,3 +453,4 @@ describe(AlgoliaHTMLExtractor) do
     end
   end
 end
+# rubocop:enable Metrics/BlockLength
