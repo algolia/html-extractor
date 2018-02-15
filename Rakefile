@@ -26,7 +26,7 @@ RSpec::Core::RakeTask.new(:test) do |spec|
 end
 desc 'Run tests (with full details)'
 RSpec::Core::RakeTask.new(:test_details) do |spec|
-  spec.rspec_opts = '--color --format documentation'
+  spec.rspec_opts = '--color --format progress'
   spec.pattern = FileList['spec/**/*_spec.rb']
 end
 desc 'Run tests in all Ruby versions (with full details)'
