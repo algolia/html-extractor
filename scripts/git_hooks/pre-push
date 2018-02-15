@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
+set -e
 
-rake test || exit 1
+rake test
 
 # No over-complex methods
-./scripts/check_flog || exit 1
+./scripts/check_flog
 
 # No duplication
 ./scripts/check_flay

@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
-
-# Succeed fast if we did not change any ruby file
-if ! git status --short | grep -q '\.rb$'; then
-  exit 0
-fi
+set -e
 
 # Do not commit any focused or excluded tests
 if grep --color -r 'spec' -E -e '^( |\t)*(fit|fdescribe|xit|xdescribe)'; then
@@ -12,5 +8,4 @@ if grep --color -r 'spec' -E -e '^( |\t)*(fit|fdescribe|xit|xdescribe)'; then
 fi
 
 # Match style guide
-rake lint || exit 1
-
+rake lint
