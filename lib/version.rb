@@ -3,3 +3,4 @@
 class AlgoliaHTMLExtractorVersion
   def self.to_s; '2.2.1' end
 end
+# rubocop:enable Style/SingleLineMethods
