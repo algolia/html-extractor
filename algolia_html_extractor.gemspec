@@ -17,7 +17,7 @@ Gem::Specification.new do |gem|
   # Dependencies
   gem.add_runtime_dependency 'awesome_print', '~> 1.6'
   gem.add_runtime_dependency 'json', '~> 2.0'
-  gem.add_runtime_dependency 'nokogiri', '~> 1.8'
+  gem.add_runtime_dependency 'nokogiri', '~> 1.8.2'
 
   gem.add_development_dependency 'coveralls', '~> 0.8.21'
   gem.add_development_dependency 'flay', '~> 2.6'
@@ -25,7 +25,6 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'guard', '~> 2.14'
   gem.add_development_dependency 'guard-rake', '~> 1.0'
   gem.add_development_dependency 'guard-rspec', '~> 4.6'
-  gem.add_development_dependency 'jeweler', '~> 2.0'
   gem.add_development_dependency 'rspec', '~> 3.0'
   gem.add_development_dependency 'rubocop', '~> 0.51'
   gem.add_development_dependency 'simplecov', '~> 0.14.1'
