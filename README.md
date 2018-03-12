@@ -89,7 +89,7 @@ Here is one of the records extracted:
     :lvl5 => nil,
     :lvl6 => nil
   },
-  :weight => {
+  :custom_ranking => {
     :heading => 70,
     :position => 3
   }
@@ -118,7 +118,7 @@ Anchors are searched in `name` and `id` attributes of headings.
 paragraph. The `lvlX` syntax is used to be compatible with the records
 [DocSearch][9] is using.
 
-The `weight` attribute is used to provide an easy way to rank two records
+The `custom_ranking` attribute is used to provide an easy way to rank two records
 relative to each other.
 
 - `heading` gives the depth level in the hierarchy where the record is. Records

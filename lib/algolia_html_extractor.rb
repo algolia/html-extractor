@@ -67,7 +67,7 @@ module AlgoliaHTMLExtractor
         hierarchy: current_hierarchy.clone,
         anchor: current_anchor,
         node: node,
-        weight: {
+        custom_ranking: {
           position: current_position,
           heading: heading_weight(current_lvl)
         }

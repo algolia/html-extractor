@@ -60,9 +60,9 @@ describe(AlgoliaHTMLExtractor) do
       actual = AlgoliaHTMLExtractor.run(input)
 
       # Then
-      expect(actual[0][:weight][:position]).to eq 0
-      expect(actual[1][:weight][:position]).to eq 1
-      expect(actual[2][:weight][:position]).to eq 2
+      expect(actual[0][:custom_ranking][:position]).to eq 0
+      expect(actual[1][:custom_ranking][:position]).to eq 1
+      expect(actual[2][:custom_ranking][:position]).to eq 2
     end
   end
 
@@ -428,7 +428,7 @@ describe(AlgoliaHTMLExtractor) do
       actual = AlgoliaHTMLExtractor.run(input)
 
       # Then
-      expect(actual[0][:weight][:heading]).to eq 100
+      expect(actual[0][:custom_ranking][:heading]).to eq 100
     end
 
     it 'should have decreasing value under small headers' do
@@ -444,12 +444,12 @@ describe(AlgoliaHTMLExtractor) do
       actual = AlgoliaHTMLExtractor.run(input)
 
       # Then
-      expect(actual[0][:weight][:heading]).to eq 90
-      expect(actual[1][:weight][:heading]).to eq 80
-      expect(actual[2][:weight][:heading]).to eq 70
-      expect(actual[3][:weight][:heading]).to eq 60
-      expect(actual[4][:weight][:heading]).to eq 50
-      expect(actual[5][:weight][:heading]).to eq 40
+      expect(actual[0][:custom_ranking][:heading]).to eq 90
+      expect(actual[1][:custom_ranking][:heading]).to eq 80
+      expect(actual[2][:custom_ranking][:heading]).to eq 70
+      expect(actual[3][:custom_ranking][:heading]).to eq 60
+      expect(actual[4][:custom_ranking][:heading]).to eq 50
+      expect(actual[5][:custom_ranking][:heading]).to eq 40
     end
   end
 end
