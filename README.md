@@ -75,7 +75,6 @@ Here is one of the records extracted:
 ```ruby
 {
   :objectID => "1f5923d5a60e998704f201bbe9964811",
-  :tag_name => "p",
   :html => "<p>The hero quits his job, hits the road, or whatever cuts him from his previous life.</p>",
   :text => "The hero quits his job, hits the road, or whatever cuts him from his previous life.",
   :node => #<Nokogiri::XML::Element:0x11a5850 name="p">,
@@ -98,9 +97,6 @@ Here is one of the records extracted:
 
 Each record has a `objectID` that uniquely identify it (computed by a hash of all
 the other values).
-
-It also contains the HTML tag name in `tag_name` (by default `<p>`
-paragraphs are extracted, but see the [settings][7] on how to change it).
 
 `html` contains the whole `outerContent` of the element, including the wrapping
 tags and inner children. The `text` attribute contains the textual content,

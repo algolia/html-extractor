@@ -2,6 +2,7 @@ require 'spec_helper'
 
 # rubocop:disable Metrics/BlockLength
 describe(AlgoliaHTMLExtractor) do
+  let(:current) { AlgoliaHTMLExtractor }
   describe '.run' do
     it 'should load from an HTML string' do
       # Given
@@ -116,26 +117,10 @@ describe(AlgoliaHTMLExtractor) do
   end
 
   describe 'extract_tag_name' do
-    it 'should extract the tag name' do
-      # Given
-      input = '<p>foo</p>'
-
-      # When
-      actual = AlgoliaHTMLExtractor.run(input)
-
-      # Then
-      expect(actual[0][:tag_name]).to eq 'p'
-    end
-
-    it 'should always return lowercase' do
-      # Given
-      input = '<P>foo</P>'
-
-      # When
-      actual = AlgoliaHTMLExtractor.run(input)
-
-      # Then
-      expect(actual[0][:tag_name]).to eq 'p'
+    subject { current.extract_tag_name(node) }
+    describe do
+      let(:node) { double('Node', name: 'P') }
+      it { should eq 'p' }
     end
   end
 
