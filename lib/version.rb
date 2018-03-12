@@ -1,6 +1,6 @@
 # Expose gem version
 # rubocop:disable Style/SingleLineMethods
 class AlgoliaHTMLExtractorVersion
-  def self.to_s; '2.3.0' end
+  def self.to_s; '2.4.0' end
 end
 # rubocop:enable Style/SingleLineMethods
