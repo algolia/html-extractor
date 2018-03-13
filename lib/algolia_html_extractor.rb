@@ -63,7 +63,7 @@ module AlgoliaHTMLExtractor
       item = {
         html: extract_html(node),
         content: content,
-        hierarchy: current_hierarchy.clone,
+        hierarchy: current_hierarchy.values.compact,
         anchor: current_anchor,
         node: node,
         custom_ranking: {

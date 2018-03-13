@@ -79,15 +79,11 @@ Here is one of the records extracted:
   :text => "The hero quits his job, hits the road, or whatever cuts him from his previous life.",
   :node => #<Nokogiri::XML::Element:0x11a5850 name="p">,
   :anchor => 'threshold',
-  :hierarchy => {
-    :lvl0 => "The Hero's Journey",
-    :lvl1 => "Part One: Departure",
-    :lvl2 => "Crossing the Threshold",
-    :lvl3 => nil,
-    :lvl4 => nil,
-    :lvl5 => nil,
-    :lvl6 => nil
-  },
+  :hierarchy => [
+    "The Hero's Journey",
+    "Part One: Departure",
+    "Crossing the Threshold"
+  ],
   :custom_ranking => {
     :heading => 70,
     :position => 3

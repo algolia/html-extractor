@@ -138,17 +138,22 @@ describe(AlgoliaHTMLExtractor) do
       actual = AlgoliaHTMLExtractor.run(input)
 
       # Then
-      expect(actual[0][:hierarchy][:lvl0]).to eq 'Foo'
-      expect(actual[0][:hierarchy][:lvl1]).to eq nil
-      expect(actual[0][:hierarchy][:lvl2]).to eq nil
+      expect(actual[0][:hierarchy]).to eq ['Foo']
 
-      expect(actual[1][:hierarchy][:lvl0]).to eq 'Foo'
-      expect(actual[1][:hierarchy][:lvl1]).to eq 'Bar'
-      expect(actual[1][:hierarchy][:lvl2]).to eq nil
+      expect(actual[1][:hierarchy]).to eq %w[Foo Bar]
 
-      expect(actual[2][:hierarchy][:lvl0]).to eq 'Foo'
-      expect(actual[2][:hierarchy][:lvl1]).to eq 'Bar'
-      expect(actual[2][:hierarchy][:lvl2]).to eq 'Baz'
+      expect(actual[2][:hierarchy]).to eq %w[Foo Bar Baz]
+    end
+
+    it 'should have an empty array when no hierarchy' do
+      # Given
+      input = '<p>First paragraph</p>'
+
+      # When
+      actual = AlgoliaHTMLExtractor.run(input)
+
+      # Then
+      expect(actual[0][:hierarchy]).to eq []
     end
 
     it 'should use inner text of headings' do
@@ -160,9 +165,7 @@ describe(AlgoliaHTMLExtractor) do
       actual = AlgoliaHTMLExtractor.run(input)
 
       # Then
-      expect(actual[0][:hierarchy][:lvl0]).to eq 'Foo'
-      expect(actual[0][:hierarchy][:lvl1]).to eq nil
-      expect(actual[0][:hierarchy][:lvl2]).to eq nil
+      expect(actual[0][:hierarchy]).to eq ['Foo']
     end
 
     it 'should handle nodes not in any hierarchy' do
@@ -174,9 +177,7 @@ describe(AlgoliaHTMLExtractor) do
       actual = AlgoliaHTMLExtractor.run(input)
 
       # Then
-      expect(actual[0][:hierarchy][:lvl0]).to eq nil
-      expect(actual[0][:hierarchy][:lvl1]).to eq nil
-      expect(actual[0][:hierarchy][:lvl2]).to eq nil
+      expect(actual[0][:hierarchy]).to eq []
     end
 
     it 'should handle any number of wrappers' do
@@ -202,17 +203,11 @@ describe(AlgoliaHTMLExtractor) do
       actual = AlgoliaHTMLExtractor.run(input)
 
       # Then
-      expect(actual[0][:hierarchy][:lvl0]).to eq 'Foo'
-      expect(actual[0][:hierarchy][:lvl1]).to eq nil
-      expect(actual[0][:hierarchy][:lvl2]).to eq nil
+      expect(actual[0][:hierarchy]).to eq ['Foo']
 
-      expect(actual[1][:hierarchy][:lvl0]).to eq 'Foo'
-      expect(actual[1][:hierarchy][:lvl1]).to eq 'Bar'
-      expect(actual[1][:hierarchy][:lvl2]).to eq nil
+      expect(actual[1][:hierarchy]).to eq %w[Foo Bar]
 
-      expect(actual[2][:hierarchy][:lvl0]).to eq 'Foo'
-      expect(actual[2][:hierarchy][:lvl1]).to eq 'Bar'
-      expect(actual[2][:hierarchy][:lvl2]).to eq 'Baz'
+      expect(actual[2][:hierarchy]).to eq %w[Foo Bar Baz]
     end
   end
 
