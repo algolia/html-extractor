@@ -124,7 +124,7 @@ describe(AlgoliaHTMLExtractor) do
     end
   end
 
-  describe 'extract_hierarchy' do
+  describe 'extract_headings' do
     it 'should extract a simple hierarchy' do
       # Given
       input = '<h1>Foo</h1>
@@ -138,14 +138,14 @@ describe(AlgoliaHTMLExtractor) do
       actual = AlgoliaHTMLExtractor.run(input)
 
       # Then
-      expect(actual[0][:hierarchy]).to eq ['Foo']
+      expect(actual[0][:headings]).to eq ['Foo']
 
-      expect(actual[1][:hierarchy]).to eq %w[Foo Bar]
+      expect(actual[1][:headings]).to eq %w[Foo Bar]
 
-      expect(actual[2][:hierarchy]).to eq %w[Foo Bar Baz]
+      expect(actual[2][:headings]).to eq %w[Foo Bar Baz]
     end
 
-    it 'should have an empty array when no hierarchy' do
+    it 'should have an empty array when no headings' do
       # Given
       input = '<p>First paragraph</p>'
 
@@ -153,7 +153,7 @@ describe(AlgoliaHTMLExtractor) do
       actual = AlgoliaHTMLExtractor.run(input)
 
       # Then
-      expect(actual[0][:hierarchy]).to eq []
+      expect(actual[0][:headings]).to eq []
     end
 
     it 'should use inner text of headings' do
@@ -165,7 +165,7 @@ describe(AlgoliaHTMLExtractor) do
       actual = AlgoliaHTMLExtractor.run(input)
 
       # Then
-      expect(actual[0][:hierarchy]).to eq ['Foo']
+      expect(actual[0][:headings]).to eq ['Foo']
     end
 
     it 'should handle nodes not in any hierarchy' do
@@ -177,7 +177,7 @@ describe(AlgoliaHTMLExtractor) do
       actual = AlgoliaHTMLExtractor.run(input)
 
       # Then
-      expect(actual[0][:hierarchy]).to eq []
+      expect(actual[0][:headings]).to eq []
     end
 
     it 'should handle any number of wrappers' do
@@ -203,11 +203,11 @@ describe(AlgoliaHTMLExtractor) do
       actual = AlgoliaHTMLExtractor.run(input)
 
       # Then
-      expect(actual[0][:hierarchy]).to eq ['Foo']
+      expect(actual[0][:headings]).to eq ['Foo']
 
-      expect(actual[1][:hierarchy]).to eq %w[Foo Bar]
+      expect(actual[1][:headings]).to eq %w[Foo Bar]
 
-      expect(actual[2][:hierarchy]).to eq %w[Foo Bar Baz]
+      expect(actual[2][:headings]).to eq %w[Foo Bar Baz]
     end
   end
 

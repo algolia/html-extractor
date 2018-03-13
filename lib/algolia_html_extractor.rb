@@ -2,7 +2,7 @@ require 'nokogiri'
 require 'digest/md5'
 
 # Extract content from an HTML page in the form of items with associated
-# hierarchy data
+# headings data
 module AlgoliaHTMLExtractor
   # Extractor options, applying default options when none set
   def self.default_options(options)
@@ -33,7 +33,7 @@ module AlgoliaHTMLExtractor
       lvl5: nil
     }
     current_position = 0 # Position of the DOM node in the tree
-    current_lvl = nil # Current closest hierarchy level
+    current_lvl = nil # Current closest headings level
     current_anchor = nil # Current closest anchor
 
     # We select all nodes that match either the headings or the elements to
@@ -63,7 +63,7 @@ module AlgoliaHTMLExtractor
       item = {
         html: extract_html(node),
         content: content,
-        hierarchy: current_hierarchy.values.compact,
+        headings: current_hierarchy.values.compact,
         anchor: current_anchor,
         node: node,
         custom_ranking: {
