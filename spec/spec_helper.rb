@@ -3,7 +3,6 @@ if ENV['TRAVIS']
   Coveralls.wear!
 end
 
-require 'awesome_print'
 require 'nokogiri'
 require_relative './spec_helper_simplecov.rb'
 require_relative '../lib/algolia_html_extractor.rb'

@@ -15,7 +15,6 @@ Gem::Specification.new do |gem|
   gem.licenses = ['MIT']
 
   # Dependencies
-  gem.add_runtime_dependency 'awesome_print', '~> 1.6'
   gem.add_runtime_dependency 'json', '~> 2.0'
   gem.add_runtime_dependency 'nokogiri', '~> 1.8.2'
 
