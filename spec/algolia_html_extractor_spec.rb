@@ -90,6 +90,20 @@ describe(AlgoliaHTMLExtractor) do
       # Then
       expect(actual[0][:html]).to eq '<p>foo</p>'
     end
+
+    it 'should remove excluded tags' do
+      # Given
+      input = '<p>foo<script src="evil.com" /></p>'
+
+      # When
+      options = {
+        tags_to_exclude: 'script'
+      }
+      actual = AlgoliaHTMLExtractor.run(input, options: options)
+
+      # Then
+      expect(actual[0][:html]).to eq '<p>foo</p>'
+    end
   end
 
   describe 'extract_text' do

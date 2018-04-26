@@ -8,7 +8,8 @@ module AlgoliaHTMLExtractor
   def self.default_options(options)
     default_options = {
       css_selector: 'p',
-      heading_selector: 'h1,h2,h3,h4,h5,h6'
+      heading_selector: 'h1,h2,h3,h4,h5,h6',
+      tags_to_exclude: ''
     }
     default_options.merge(options)
   end
@@ -22,6 +23,7 @@ module AlgoliaHTMLExtractor
     options = default_options(options)
     heading_selector = options[:heading_selector]
     css_selector = options[:css_selector]
+    tags_to_exclude = options[:tags_to_exclude]
 
     items = []
     current_hierarchy = {
@@ -55,6 +57,9 @@ module AlgoliaHTMLExtractor
 
       # Stop if node is not to be extracted
       next unless node.matches?(css_selector)
+
+      # Removing excluded child from the node
+      node.search(tags_to_exclude).each(&:remove) unless tags_to_exclude.empty?
 
       # Stop if node is empty
       content = extract_text(node)
