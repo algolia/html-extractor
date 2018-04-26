@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-MAX_SCORE = 45
+MAX_SCORE = 55
 
 flog_lines = `flog ./lib/`.split("\n")
 
