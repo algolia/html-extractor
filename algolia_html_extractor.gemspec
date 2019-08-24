@@ -16,7 +16,7 @@ Gem::Specification.new do |gem|
 
   # Dependencies
   gem.add_runtime_dependency 'json', '~> 2.0'
-  gem.add_runtime_dependency 'nokogiri', '~> 1.8.2'
+  gem.add_runtime_dependency 'nokogiri', '~> 1.10.4'
 
   gem.add_development_dependency 'coveralls', '~> 0.8.21'
   gem.add_development_dependency 'flay', '~> 2.6'

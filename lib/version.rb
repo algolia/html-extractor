@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Expose gem version
 # rubocop:disable Style/SingleLineMethods
 class AlgoliaHTMLExtractorVersion

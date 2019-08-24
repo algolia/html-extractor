@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'nokogiri'
 require 'digest/md5'
 
@@ -153,6 +155,7 @@ module AlgoliaHTMLExtractor
   def self.heading_weight(heading_level)
     weight = 100
     return weight if heading_level.nil?
+
     weight - ((heading_level + 1) * 10)
   end
 end
